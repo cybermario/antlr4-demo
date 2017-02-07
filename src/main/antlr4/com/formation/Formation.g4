@@ -2,13 +2,9 @@ grammar Formation;
 
 // Parser Rules
 
-formation: sector? groupWithDelimiter+;
+formation: sector? (DELIMITER? (group | vehicle))+;
 
-groupWithDelimiter: DELIMITER? group;
-
-group: (GROUP_START vehicleWithDelimiter+ GROUP_END | FICTIVE_VEHICLE);
-
-vehicleWithDelimiter: DELIMITER? vehicle;
+group: GROUP_START (DELIMITER? vehicle)+ GROUP_END;
 
 vehicle: STATUS? NO_LEFT_PASSAGE? vehicleType NO_RIGHT_PASSAGE? order? offer? sector?;
 
@@ -22,9 +18,7 @@ order: ORDER_PREFIX orderNumber;
 
 orderNumber: TEXT;
 
-offer: OFFER_PREFIX offerDetail+;
-
-offerDetail: offerText OFFER_DELIMITER?;
+offer: OFFER_PREFIX (offerText OFFER_DELIMITER?)+;
 
 offerText: TEXT;
 
@@ -36,8 +30,6 @@ DELIMITER: ',';
 GROUP_START: '[';
 
 GROUP_END: ']';
-
-FICTIVE_VEHICLE: 'F';
 
 STATUS:  '-' | 'R' ;
 
