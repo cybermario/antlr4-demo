@@ -22,7 +22,6 @@ offer: OFFER_PREFIX (offerText OFFER_DELIMITER?)+;
 
 offerText: TEXT;
 
-
 // Lexer Rules
 
 DELIMITER: ',';

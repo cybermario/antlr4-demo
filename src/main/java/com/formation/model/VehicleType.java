@@ -4,19 +4,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public enum VehicleType {
-    FIRST_CLASS("1"),
-    SECONC_CLASS("2"),
-    FIRST_AND_SECONC_CLASS("12"),
-    LAYN("CC"),
-    FAMILY("FA"),
-    SLEEP("WL"),
-    SLEEP_AND_LAY("WC"),
-    RESTAURANT("WR"),
-    TRACTION("LK"),
-    BAGGAGE("D"),
-    FICTIVE("F"),
-    CLASS_LESS("K"),
-    PARKED("X");
+    FIRST_CLASS("1"), SECOND_CLASS("2"), FIRST_AND_SECOND_CLASS("12"), LAY("CC"), FAMILY("FA"), SLEEP("WL"), SLEEP_AND_LAY("WC"), RESTAURANT("WR"), TRACTION("LK"), BAGGAGE("D"), FICTIVE(
+            "F"), CLASS_LESS("K"), PARKED("X");
 
     private final String value;
 

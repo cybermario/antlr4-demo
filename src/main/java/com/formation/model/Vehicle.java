@@ -3,7 +3,7 @@ package com.formation.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vehicle {
+public class Vehicle implements FormationElement {
 
     private String sector;
 
@@ -15,7 +15,7 @@ public class Vehicle {
 
     private int orderNumber;
 
-    private int vehicleGroupIndex;
+    private int positionInFormation;
 
     private List<Offer> offers;
 
@@ -23,14 +23,14 @@ public class Vehicle {
         this.sector = builder.sector;
         this.passThrough = builder.passThrough;
         this.vehicleStatus = builder.vehicleStatus;
-        this.vehicleGroupIndex = builder.vehicleGroupIndex;
+        this.positionInFormation = builder.positionInFormation;
         this.vehicleType = builder.vehicleType;
         this.orderNumber = builder.orderNumber;
         this.offers = builder.offers;
     }
 
-    public static Builder newBuilder() {
-        return new Builder();
+    public static Builder newBuilder(int positionInFormation) {
+        return new Builder(positionInFormation);
     }
 
     public String getSector() {
@@ -49,8 +49,8 @@ public class Vehicle {
         return orderNumber;
     }
 
-    public int getVehicleGroupIndex() {
-        return vehicleGroupIndex;
+    public int getPositionInFormation() {
+        return positionInFormation;
     }
 
     public VehicleType getVehicleType() {
@@ -65,14 +65,15 @@ public class Vehicle {
         private String sector;
         private PassThrough passThrough;
         private VehicleStatus vehicleStatus;
-        private int vehicleGroupIndex = -1;
+        private int positionInFormation;
         private VehicleType vehicleType;
         private int orderNumber;
         private List<Offer> offers = new ArrayList();
 
-        // private Builder() {
-        // this.displayClassId = Objects.requireNonNull(displayClassId);
-        // }
+        public Builder(int positionInFormation) {
+            this.positionInFormation = positionInFormation;
+            // this.displayClassId = Objects.requireNonNull(displayClassId);
+        }
 
         public Builder setSector(String sector) {
             this.sector = sector;
@@ -86,11 +87,6 @@ public class Vehicle {
 
         public Builder setVehicleStatus(VehicleStatus vehicleStatus) {
             this.vehicleStatus = vehicleStatus;
-            return this;
-        }
-
-        public Builder setVehicleGroupIndex(int vehicleGroupIndex) {
-            this.vehicleGroupIndex = vehicleGroupIndex;
             return this;
         }
 

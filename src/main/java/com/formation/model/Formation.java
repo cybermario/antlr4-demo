@@ -4,45 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Formation {
-    private List<VehicleGroup> vehicleGroups;
 
-    private List<Vehicle> vehicles;
+    private List<FormationElement> formationElements;
 
-    public List<VehicleGroup> getVehicleGroups() {
-        return vehicleGroups;
-    }
-
-    public List<Vehicle> getVehicles() {
-        return vehicles;
+    public List<FormationElement> getFormationElements() {
+        return formationElements;
     }
 
     public Formation(Formation.Builder builder) {
-        this.vehicleGroups = builder.vehicleGroups;
-        this.vehicles = builder.vehicles;
+        this.formationElements = builder.formationElements;
     }
 
     public final static class Builder {
-        private List<VehicleGroup> vehicleGroups = new ArrayList();
+        private List<FormationElement> formationElements = new ArrayList();
 
-        private List<Vehicle> vehicles = new ArrayList();
-
-        public Formation.Builder setVehicleGroups(List<VehicleGroup> vehicleGroups) {
-            this.vehicleGroups = vehicleGroups;
+        public Formation.Builder setFormationElements(List<FormationElement> formationElements) {
+            this.formationElements = formationElements;
             return this;
         }
 
-        public Formation.Builder addVehicleGroup(VehicleGroup vehicleGroup) {
-            this.vehicleGroups.add(vehicleGroup);
-            return this;
-        }
-
-        public Formation.Builder setVehicles(List<Vehicle> vehicles) {
-            this.vehicles = vehicles;
-            return this;
-        }
-
-        public Formation.Builder addVehicle(Vehicle vehicle) {
-            this.vehicles.add(vehicle);
+        public Formation.Builder addFormationElement(FormationElement formationElement) {
+            this.formationElements.add(formationElement);
             return this;
         }
 

@@ -33,7 +33,7 @@ public class FormationBuilder extends FormationBaseListener {
 
     private String sector;
 
-    private int vehicleGroupIndex = 0;
+    private int positionInFormation = 0;
 
     public FormationBuilder(Consumer<Formation> formationConsumer) {
         this.formationConsumer = formationConsumer;
@@ -47,21 +47,20 @@ public class FormationBuilder extends FormationBaseListener {
     @Override
     public void enterGroup(@NotNull FormationParser.GroupContext ctx) {
         LOG.debug("Enter Group: {} ", ctx.getText());
-        this.vehicleGroupBuilder = new VehicleGroup.Builder();
+        this.vehicleGroupBuilder = new VehicleGroup.Builder(positionInFormation);
     }
 
     @Override
     public void exitGroup(@NotNull FormationParser.GroupContext ctx) {
         LOG.debug("Exit Group: {} ", ctx.getText());
-        formationBuilder.addVehicleGroup(vehicleGroupBuilder.createVehicleGroup());
+        formationBuilder.addFormationElement(vehicleGroupBuilder.createVehicleGroup());
         vehicleGroupBuilder = null;
-        vehicleGroupIndex++;
     }
 
     @Override
     public void enterVehicle(@NotNull FormationParser.VehicleContext ctx) {
         LOG.debug("Enter Vehicle: {} ", ctx.getText());
-        vehicleBuilder = new Vehicle.Builder();
+        vehicleBuilder = new Vehicle.Builder(positionInFormation);
 
         if (ctx.STATUS() != null) {
             vehicleBuilder.setVehicleStatus(VehicleStatus.get(ctx.STATUS().getText()));
@@ -143,18 +142,16 @@ public class FormationBuilder extends FormationBaseListener {
         LOG.debug("Exit Vehicle: {} ", ctx.getText());
         vehicleBuilder.setSector(sector);
 
-        if (vehicleGroupBuilder != null) {
-            vehicleBuilder.setVehicleGroupIndex(vehicleGroupIndex);
-        }
-
         Vehicle vehicle = vehicleBuilder.createVehicle();
 
-        if (vehicleGroupBuilder != null) {
+        if (vehicleGroupBuilder == null) {
+            formationBuilder.addFormationElement(vehicle);
+        } else {
             vehicleGroupBuilder.addVehicle(vehicle);
             vehicleBuilder = null;
         }
 
-        formationBuilder.addVehicle(vehicle);
+        positionInFormation++;
     }
 
     @Override
